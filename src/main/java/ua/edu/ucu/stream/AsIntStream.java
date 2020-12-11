@@ -34,7 +34,7 @@ public class AsIntStream implements IntStream {
     }
 
     @Override
-    public Double average()
+    public double average()
             throws IllegalArgumentException {
         isEmpty();
         return (double) sum() / streamLength;
@@ -53,13 +53,13 @@ public class AsIntStream implements IntStream {
     }
 
     @Override
-    public Integer max()
+    public int max()
             throws IllegalArgumentException {
         return minMax(1);
     }
 
     @Override
-    public Integer min()
+    public int min()
             throws IllegalArgumentException {
         return minMax(-1);
     }
@@ -70,7 +70,7 @@ public class AsIntStream implements IntStream {
     }
 
     @Override
-    public Integer sum()
+    public int sum()
             throws IllegalArgumentException {
         isEmpty();
         int sum = 0;
@@ -122,9 +122,10 @@ public class AsIntStream implements IntStream {
     @Override
     public int reduce(int identity, IntBinaryOperator op) {
         int result = 0;
+        int curRes = identity;
         for (int i = 0; i < streamLength; i++) {
-            result = op.apply(identity, numberArray.get(i));
-            identity = result;
+            result = op.apply(curRes, numberArray.get(i));
+            curRes = result;
         }
         return result;
     }
